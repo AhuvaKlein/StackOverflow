@@ -1,0 +1,26 @@
+﻿
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form method="post" action="/home/askaquestion">
+            <input name="title" type="text" class="form-control" placeholder="Title" />
+            <textarea name="text" class="form-control" rows="6" placeholder="Type Question here..."></textarea>
+            <select multiple class="form-control" id="tags" name="tags"></select>
+            <button class="btn btn-primary">Ask!</button>
+        </form>
+    </div>
+</div>
+
+
+@section scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+    <script>
+        $(() => {
+            $("#tags").tagsinput();
+        })
+    </script>
+}
+
+@section styles
+    {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css" />
+}

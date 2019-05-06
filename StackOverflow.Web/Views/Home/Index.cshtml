@@ -1,0 +1,37 @@
+﻿
+@using StackOverflow.Data
+@model IEnumerable<IndexViewModel>
+
+
+<div class="row">
+    <h1>Questions</h1>
+    <div class="col-md-8 col-md-offset-2">
+        @foreach (IndexViewModel q in Model)
+        {
+        <div class="well">
+            <a href="/home/question?id=@q.Question.Id"><h3>@q.Question.Title</h3></a>
+            @if (q.Question.Text.Length > 50)
+            {
+                <h5>
+                    @for (int i = 0; i < 50; i++)
+                    {
+                        @q.Question.Text[i];
+                    }...
+                </h5>
+            }
+            else
+            {
+                <h5>@q.Question.Text</h5>
+            }
+            <h5>@q.Question.Likes.Count Like(s)</h5>
+            @foreach (Tag t in q.Tags)
+            {
+                <span> &#35 @t.Name &nbsp;</span>
+            }
+        </div>
+
+        }
+
+
+    </div>
+</div>

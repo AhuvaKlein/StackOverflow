@@ -1,0 +1,55 @@
+﻿@using StackOverflow.Data
+@model QuestionViewModel
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="well">
+            <h2>@Model.Question.Title</h2>
+            <h5>
+                @Model.Question.Text
+            </h5>
+
+            @foreach (Tag t in Model.Tags)
+            {
+                <span> &#35 @t.Name &nbsp;</span>
+            }
+
+        </div>
+        <h4>
+            @if (Model.IsVerified && Model.AlreadyLiked)
+            {
+                <button class="btn btn-danger" id="like-question" data-questionid=@Model.Question.Id disabled>Like!</button>
+            }
+            else if (Model.IsVerified)
+            {
+                <button class="btn btn-danger" id="like-question" data-questionid=@Model.Question.Id data-userid=@Model.User.Id>Like!</button>
+            }
+        </h4>
+            <h2><span  id="likes">@Model.Question.Likes.Count</span> People Liked This Question</h2>
+        
+        <h1>Answers from our smarty pants users:</h1>
+
+        @foreach (Answer a in Model.Answers)
+        {
+            <div class="well">
+                <h4>@a.Text</h4>
+                <h5>Answered By: @a.User.Email</h5>
+            </div>
+        }
+
+        @if (Model.IsVerified)
+        {
+            <div class="well">
+                <form action="/home/answer?questionid=@Model.Question.Id" method="post">
+                    <input type="hidden" name="UserId" value=@Model.User.Id />
+                    <textarea name="text" rows="6" class="form-control"></textarea>
+                    <button class=" btn btn-success">Answer!</button>
+                </form>
+            </div>
+        }
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/js/likes.js"></script>
+}
