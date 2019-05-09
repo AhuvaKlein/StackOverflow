@@ -60,8 +60,14 @@ namespace StackOverflow.Data
             using (var context = new QuestionsTagsContext(_connectionString))
             {
                 User u = GetUserByEmail(user.Email);
-                bool verify = BCrypt.Net.BCrypt.Verify(user.Password, u.Password);
+                bool verify = false;
+                if (u != null)
+                {
+                    verify = BCrypt.Net.BCrypt.Verify(user.Password, u.Password);
+                }
                 return verify;
+
+
             }
         }
 
@@ -167,6 +173,5 @@ namespace StackOverflow.Data
                 return l.Count();
             }
         }
-
     }
 }
